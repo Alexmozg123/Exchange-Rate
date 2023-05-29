@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exchangerate.R
 
@@ -43,12 +43,21 @@ class QuotationListFragment : Fragment() {
     }
 
     private fun setAdapter(rates: List<Pair<String, String>>) {
-        val adapter = QuotationAdapter(rates) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        var temp: String
+        val adapter = QuotationAdapter(rates) { currency ->
+            temp = currency
+            navigateToDetailFragment(temp)
         }
         adapter.submitList(rates)
         recyclerView.adapter = adapter
     }
+
+    private fun navigateToDetailFragment(currency: String) {
+        val action = QuotationListFragmentDirections
+            .actionQuotationListFragmentToDetailFragment(currency)
+        requireView().findNavController().navigate(action)
+    }
+
 
 //    private fun searching(search: SearchView) {
 //        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
