@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/quotationListFragment">
+
+    <fragment
+        android:id="@+id/quotationListFragment"
+        android:name="com.example.exchangerate.presentation.quotationlistscreen.QuotationListFragment"
+        android:label="fragment_quotation_list"
+        tools:layout="@layout/fragment_quotation_list" >
+        <action
+            android:id="@+id/action_quotationListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.exchangerate.presentation.detailscreen.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_to_quotationListFragment"
+            app:destination="@id/quotationListFragment" />
+        <argument
+            android:name="currency"
+            app:argType="string" />
+    </fragment>
+</navigation>
