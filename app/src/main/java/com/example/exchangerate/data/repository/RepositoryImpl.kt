@@ -7,6 +7,6 @@ class RepositoryImpl : Repository {
     override suspend fun getQuotationListWithAGivenCurrency(): Map<String, String> =
         RetrofitInstance.api.getQuotationListWithAGivenCurrency().data
 
-    override suspend fun convertTheCurrency(convertValue: Float): String =
-        RetrofitInstance.api.convertTheCurrency(convertValue).data[""].toString()
+    override suspend fun getOneCurrency(currency: String): String =
+        RetrofitInstance.api.getOneCurrency(currency).data[currency].toString()
 }

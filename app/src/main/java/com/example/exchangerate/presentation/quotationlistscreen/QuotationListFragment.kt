@@ -43,10 +43,8 @@ class QuotationListFragment : Fragment() {
     }
 
     private fun setAdapter(rates: List<Pair<String, String>>) {
-        var temp: String
         val adapter = QuotationAdapter(rates) { currency ->
-            temp = currency
-            navigateToDetailFragment(temp)
+            navigateToDetailFragment(currency)
         }
         adapter.submitList(rates)
         recyclerView.adapter = adapter
@@ -57,7 +55,6 @@ class QuotationListFragment : Fragment() {
             .actionQuotationListFragmentToDetailFragment(currency)
         requireView().findNavController().navigate(action)
     }
-
 
 //    private fun searching(search: SearchView) {
 //        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

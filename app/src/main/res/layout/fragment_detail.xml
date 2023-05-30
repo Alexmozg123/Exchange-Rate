@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
     tools:context=".presentation.detailscreen.DetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tvCurrencyForOneRub"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="64dp"
+        android:text="1 RUB = 123 AED"
+        android:textSize="28sp"
+        android:layout_margin="8dp"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/etConvertValue"
+        android:layout_width="match_parent"
+        android:hint="Зарубежная валюта"
+        android:layout_height="64dp"
+        android:layout_margin="8dp"/>
+
+    <TextView
+        android:id="@+id/tvExchangeRateAgainstTheRuble"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:text="123"
+        android:textSize="28sp"
+        android:layout_margin="8dp"/>
+
+
+</LinearLayout>
