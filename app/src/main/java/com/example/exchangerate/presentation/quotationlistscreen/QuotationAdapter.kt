@@ -12,7 +12,7 @@ import com.example.exchangerate.presentation.quotationlistscreen.QuotationAdapte
 
 class QuotationAdapter(
     private val items: List<Pair<String, String>>,
-    private val listener: (currency: String) -> Unit
+    private val listener: (currency: String, value: String) -> Unit
 ) : ListAdapter<Pair<String, String>, RateHolder>(QuotationComparator()){
 
     class RateHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -34,7 +34,7 @@ class QuotationAdapter(
     override fun onBindViewHolder(holder: RateHolder, position: Int) {
         holder.bind(items[position])
         holder.itemView.setOnClickListener {
-            listener(items[position].first)
+            listener(items[position].first, items[position].second)
         }
     }
 

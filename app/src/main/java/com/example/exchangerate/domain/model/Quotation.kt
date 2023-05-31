@@ -1,4 +1,4 @@
-package com.example.exchangerate.domain
+package com.example.exchangerate.domain.model
 
 data class Quotation(
     val status: Int,

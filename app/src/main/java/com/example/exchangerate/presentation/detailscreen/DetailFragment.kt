@@ -1,5 +1,6 @@
 package com.example.exchangerate.presentation.detailscreen
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.example.exchangerate.Const
 import com.example.exchangerate.R
 
 class DetailFragment : Fragment() {
@@ -31,7 +33,15 @@ class DetailFragment : Fragment() {
         tvExchangeRateAgainstTheRuble = view.findViewById(R.id.tvExchangeRateAgainstTheRuble)
         etConvertValue = view.findViewById(R.id.etConvertValue)
 
+        setViewInfo()
+
         return view
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setViewInfo() {
+        tvCurrencyForOneRub.text = "1 ${args.rate[0]} = ${args.rate[1]} ${Const.BASE_CURRENCY}"
+        etConvertValue.hint = args.rate[0]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,15 +52,13 @@ class DetailFragment : Fragment() {
     }
 
     private fun listenEditTextChanges() {
-        val currency = args.currency
+        val rate = args.rate[1]
         etConvertValue.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val convertValue = if (s.isNullOrEmpty()) { "1" } else s.toString()
-                viewModel.updateExchangeRateAgainstTheRuble(currency, convertValue)
+                viewModel.updateExchangeRateAgainstTheRuble(rate, s.toString())
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
         })
     }
-
 }

@@ -6,7 +6,4 @@ import com.example.exchangerate.domain.Repository
 class RepositoryImpl : Repository {
     override suspend fun getQuotationListWithAGivenCurrency(): Map<String, String> =
         RetrofitInstance.api.getQuotationListWithAGivenCurrency().data
-
-    override suspend fun getOneCurrency(currency: String): String =
-        RetrofitInstance.api.getOneCurrency(currency).data[currency].toString()
 }

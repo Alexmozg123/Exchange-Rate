@@ -4,31 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="16dp"
     tools:context=".presentation.detailscreen.DetailFragment">
 
     <TextView
         android:id="@+id/tvCurrencyForOneRub"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:text="1 RUB = 123 AED"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="start|center"
+        android:text="@string/_1_rub_123_aed"
+        android:textColor="@color/black"
         android:textSize="28sp"
-        android:layout_margin="8dp"/>
+        tools:ignore="TextSizeCheck" />
 
     <EditText
         android:id="@+id/etConvertValue"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:hint="Зарубежная валюта"
         android:layout_height="64dp"
-        android:layout_margin="8dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints=""
+        android:inputType="numberDecimal"
+        android:textColor="@color/black"
+        tools:ignore="LabelFor,SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
     <TextView
         android:id="@+id/tvExchangeRateAgainstTheRuble"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:text="123"
+        android:textColor="@color/black"
         android:textSize="28sp"
-        android:layout_margin="8dp"/>
-
+        android:gravity="start|center"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
 
 </LinearLayout>

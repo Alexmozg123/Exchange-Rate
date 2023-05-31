@@ -1,12 +1,14 @@
 package com.example.exchangerate.presentation.quotationlistscreen
 
 import androidx.lifecycle.*
+import com.example.exchangerate.domain.ExtensionsWorker
 import com.example.exchangerate.domain.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class QuotationListViewModel(
     private val repository: Repository,
+    private val extensionsWorker: ExtensionsWorker,
 ) : ViewModel() {
 
     private val _result = MutableLiveData<List<Pair<String, String>>>()
@@ -16,37 +18,34 @@ class QuotationListViewModel(
     fun updateQuotationList() {
         viewModelScope.launch(Dispatchers.IO) {
             val resultMap = repository.getQuotationListWithAGivenCurrency()
-            val entries: List<Pair<String, String>> = resultMap.toList()
-            _result.postValue(entries)
+            val resultList: List<Pair<String, String>> = resultMap.toList()
+            _result.postValue(extensionsWorker.deleteRateExtension(resultList))
         }
     }
 
-//    private fun parseMapToObjectList(map: Map<String, String>) : List<`Pair<String, String>`> {
-//        lateinit var list: MutableList<`Pair<String, String>`>
-//        for ((currency, value) in map) {
-//            list.add(`Pair<String, String>`(currency, value))
-//        }
-//        return list
-//    }
+    fun filterList(
+        text: String,
+        emptyListener: (errorStr: String) -> Unit,
+        listListener: (listListener: List<Pair<String, String>>) -> Unit,
+    ) {
+        val filterList: MutableList<Pair<String, String>> = ArrayList()
+        for (item in _result.value!!) {
+            if (item.first.contains(text)) {
+                filterList.add(item)
+            }
+        }
 
-//    fun filterList(text: String, toastListener: (errorStr: String) -> Unit) {
-//        val filterList: List<Pair<String, String>> = ArrayList()
-//        for (OneRatePair in 1.._result.value!!.size) {
-//            if () {
-//                filterList.listIterator()
-//            }
-//        }
-//
-//        if (filterList.isEmpty()) {
-//            toastListener("No data found")
-//        } else
-//    }
+        if (filterList.isEmpty()) {
+            emptyListener("No data found")
+        } else listListener(filterList.toList())
+    }
 
     @Suppress("UNCHECKED_CAST")
     class QuotationListVMFactory(
         private val repository: Repository,
+        private val extensionsWorker: ExtensionsWorker,
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            QuotationListViewModel(repository) as T
+            QuotationListViewModel(repository, extensionsWorker) as T
     }
 }

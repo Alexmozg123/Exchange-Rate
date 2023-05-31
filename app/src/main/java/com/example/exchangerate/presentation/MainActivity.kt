@@ -1,4 +1,4 @@
-package com.example.exchangerate
+package com.example.exchangerate.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,13 +7,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.example.exchangerate.R
 import com.example.exchangerate.data.repository.RepositoryImpl
+import com.example.exchangerate.domain.Calculator
+import com.example.exchangerate.domain.ExtensionsWorker
 import com.example.exchangerate.presentation.detailscreen.DetailViewModel
 import com.example.exchangerate.presentation.quotationlistscreen.QuotationListViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private val repository = RepositoryImpl()
+    private val calculator = Calculator()
+    private val extensionsWorker = ExtensionsWorker()
+
     private lateinit var quotationListViewModel: QuotationListViewModel
     private lateinit var detailViewModel: DetailViewModel
 
@@ -27,11 +33,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewModels() {
         quotationListViewModel = ViewModelProvider(this,
-            QuotationListViewModel.QuotationListVMFactory(repository)
+            QuotationListViewModel.QuotationListVMFactory(repository, extensionsWorker)
         )[QuotationListViewModel::class.java]
 
         detailViewModel = ViewModelProvider(this,
-            DetailViewModel.DetailVMFactory(repository)
+            DetailViewModel.DetailVMFactory(calculator)
         )[DetailViewModel::class.java]
     }
 
