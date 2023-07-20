@@ -1,5 +1,7 @@
 package com.example.exchangerate.domain
 
+import com.example.exchangerate.domain.model.Quotation
+
 interface Repository {
-    suspend fun getQuotationListWithAGivenCurrency() : Map<String, String>
+    suspend fun getQuotationList() : List<Quotation>
 }

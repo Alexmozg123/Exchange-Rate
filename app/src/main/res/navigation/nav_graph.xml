@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/quotationListFragment"
-        android:name="com.example.exchangerate.presentation.quotationlistscreen.QuotationListFragment"
+        android:name="com.example.exchangerate.ui.quotationlistscreen.QuotationListFragment"
         android:label="fragment_quotation_list"
         tools:layout="@layout/fragment_quotation_list" >
         <action
@@ -16,13 +16,14 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.exchangerate.presentation.detailscreen.DetailFragment"
+        android:name="com.example.exchangerate.ui.detailscreen.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/action_detailFragment_to_quotationListFragment"
             app:destination="@id/quotationListFragment" />
-        <argument android:name="rate"
-            app:argType="string[]" />
+        <argument
+            android:name="quatation"
+            app:argType="com.example.exchangerate.domain.model.Quotation" />
     </fragment>
 </navigation>

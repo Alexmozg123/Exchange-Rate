@@ -1,4 +1,4 @@
-package com.example.exchangerate.presentation.quotationlistscreen
+package com.example.exchangerate.ui.quotationlistscreen
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,20 +8,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exchangerate.R
-import com.example.exchangerate.presentation.quotationlistscreen.QuotationAdapter.RateHolder
+import com.example.exchangerate.domain.model.Quotation
+import com.example.exchangerate.ui.quotationlistscreen.QuotationAdapter.RateHolder
 
 class QuotationAdapter(
-    private val items: List<Pair<String, String>>,
-    private val listener: (currency: String, value: String) -> Unit
-) : ListAdapter<Pair<String, String>, RateHolder>(QuotationComparator()){
+    private val listener: (Quotation) -> Unit
+) : ListAdapter<Quotation, RateHolder>(QuotationComparator()){
 
     class RateHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val tvCurrency: TextView = view.findViewById(R.id.tvCurrency)
         private val tvValue: TextView = view.findViewById(R.id.tvValue)
 
-        fun bind(item: Pair<String, String>) {
-            tvCurrency.text = item.first
-            tvValue.text = item.second
+        fun bind(item: Quotation) {
+            tvCurrency.text = item.nameCurrency
+            tvValue.text = item.rate
         }
     }
 
@@ -32,17 +32,17 @@ class QuotationAdapter(
     }
 
     override fun onBindViewHolder(holder: RateHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
-            listener(items[position].first, items[position].second)
+            listener(getItem(position))
         }
     }
 
-    class QuotationComparator : DiffUtil.ItemCallback<Pair<String, String>>() {
-        override fun areItemsTheSame(oldItem: Pair<String, String>, newItem: Pair<String, String>): Boolean =
-            oldItem.first == newItem.first
+    class QuotationComparator : DiffUtil.ItemCallback<Quotation>() {
+        override fun areItemsTheSame(oldItem: Quotation, newItem: Quotation): Boolean =
+            oldItem.nameCurrency == newItem.nameCurrency
 
-        override fun areContentsTheSame(oldItem: Pair<String, String>, newItem: Pair<String, String>): Boolean =
+        override fun areContentsTheSame(oldItem: Quotation, newItem: Quotation): Boolean =
             oldItem == newItem
     }
 }
